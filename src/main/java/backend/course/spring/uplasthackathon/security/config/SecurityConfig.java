@@ -27,25 +27,15 @@ public class SecurityConfig extends WebSecurityConfiguration {
             "/swagger-ui/**",
             "/backend/swagger-ui.html",
             "/documentation/**",
-            "/v3/api-docs/**",
-            "/api/v1/films/all",
-            "/api/v1/films/search",
-            "/api/v1/films/filter",
-            "/api/v1/films/top"
+            "/v3/api-docs/**"
     };
 
     public String[] ADMIN = {
-            "/api/v1/films/**",
-            "/api/v1/genres/**"
+            "/api/v1/employees/**",
     };
 
     public String[] USER = {
-            "/api/v1/films/get/{id}",
-            "/api/v1/films/all",
-            "/api/v1/films/top",
-            "/api/v1/films/search",
-            "/api/v1/films/filter",
-            "/api/v1/genres"
+
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
