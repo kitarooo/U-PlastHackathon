@@ -41,7 +41,7 @@ public class AuthController {
     @Operation(summary = "Авторизация для всех пользователей", description = "Ендпоинт для авторизации и выдачи токенов!",
         responses = {
             @ApiResponse(
-                    content = @Content(mediaType = "stringg"),
+                    content = @Content(mediaType = "string"),
                     responseCode = "200", description = "Good"),
             @ApiResponse(
                     content = @Content(mediaType = "application/json",
