@@ -6,6 +6,7 @@ import backend.course.spring.uplasthackathon.dto.response.AuthenticationResponse
 import backend.course.spring.uplasthackathon.entity.User;
 import backend.course.spring.uplasthackathon.entity.enums.Role;
 import backend.course.spring.uplasthackathon.exception.IncorrectDataException;
+import backend.course.spring.uplasthackathon.exception.NotFoundException;
 import backend.course.spring.uplasthackathon.exception.UserAlreadyExistException;
 import backend.course.spring.uplasthackathon.repository.UserRepository;
 import backend.course.spring.uplasthackathon.security.jwt.JwtService;
@@ -44,9 +45,9 @@ public class AuthService {
 
     public AuthenticationResponse userLogin(LoginRequest request) {
         User user = userRepository.findUserByUsername(request.getUsername())
-                .orElseThrow(() -> new IncorrectDataException("Данные введены неправильно, повторите попытку!"));
+                .orElseThrow(() -> new NotFoundException("Данные введены неправильно, повторите попытку!"));
 
-        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(request.getPassword(), user.getPassword()) && user.getUsername().equals(request.getUsername())) {
             var jwtToken = jwtService.generateToken(user);
             var refreshToken = jwtService.generateRefreshToken(user);
             return AuthenticationResponse.builder()
