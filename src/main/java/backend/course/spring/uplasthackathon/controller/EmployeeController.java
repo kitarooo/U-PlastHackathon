@@ -57,7 +57,7 @@ public class EmployeeController {
         return employeeService.updateEmployeeById(id, request);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{username}")
     @Operation(summary = "Admin endpoint", description = "Для удаления сотрудника!",
             responses = {
                     @ApiResponse(
@@ -69,7 +69,7 @@ public class EmployeeController {
                             responseCode = "404", description = "Employee not found!"
                     )
             })
-    public String deleteEmployeeByUsername(@RequestParam String username) {
+    public String deleteEmployeeByUsername(@PathVariable String username) {
         return employeeService.deleteEmployeeByUsername(username);
     }
 

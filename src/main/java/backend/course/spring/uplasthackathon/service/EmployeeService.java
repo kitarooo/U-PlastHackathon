@@ -76,6 +76,7 @@ public class EmployeeService {
                 .firstname(user.getFirstname())
                 .lastname(user.getFirstname())
                 .password(user.getPassword())
+                .role(user.getRole())
                 .build();
     }
 
