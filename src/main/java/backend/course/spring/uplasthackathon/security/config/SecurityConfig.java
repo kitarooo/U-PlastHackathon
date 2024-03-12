@@ -31,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfiguration {
     };
 
     public String[] ADMIN = {
-            "/api/v1/employees/**",
+            "/api/v1/catalogs/**"
     };
 
     public String[] USER = {
-
+            "/api/v1/catalogs/all",
+            "/api/v1/catalogs/{id}"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

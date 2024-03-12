@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     Role role;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Catalog> catalogs;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
