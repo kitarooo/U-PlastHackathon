@@ -36,7 +36,7 @@ public class EmployeeService {
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.EMPLOYEE)
+                .role(Role.ROLE_EMPLOYEE)
                 .build();
         userRepository.save(user);
 
@@ -83,7 +83,7 @@ public class EmployeeService {
     public List<String > getAllEmployees() {
         return userRepository.findAll()
                 .stream()
-                .filter(a -> a.getRole() == Role.EMPLOYEE)
+                .filter(a -> a.getRole() == Role.ROLE_EMPLOYEE)
                 .map(User::getUsername)
                 .collect(Collectors.toList());
     }
@@ -91,7 +91,7 @@ public class EmployeeService {
     public List<User> getAllWithFullDesc() {
         return userRepository.findAll()
                 .stream()
-                .filter(a -> a.getRole() == Role.EMPLOYEE)
+                .filter(a -> a.getRole() == Role.ROLE_EMPLOYEE)
                 .collect(Collectors.toList());
     }
 }

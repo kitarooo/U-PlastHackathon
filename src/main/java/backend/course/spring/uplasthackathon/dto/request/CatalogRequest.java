@@ -9,11 +9,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RegistrationRequest {
-    String username;
-    String email;
-    String firstname;
-    String lastname;
-    String password;
-    String phoneNumber;
+public class CatalogRequest {
+
+    String catalogName;
+    double price;
+    String description;
+    String features;
+    Long userId;
+
 }

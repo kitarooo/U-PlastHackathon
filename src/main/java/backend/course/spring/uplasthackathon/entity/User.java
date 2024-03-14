@@ -32,10 +32,12 @@ public class User implements UserDetails {
     String firstname;
     String lastname;
     String password;
+    String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     Role role;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
