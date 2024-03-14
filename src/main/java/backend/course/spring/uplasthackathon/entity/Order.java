@@ -1,27 +1,30 @@
 package backend.course.spring.uplasthackathon.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Builder
-@Table(name = "catalogs")
+@Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Catalog {
+public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    String catalogName;
-    String imageUrl;
-    double price;
-    String description;
-    String features;
+    String orderName;
+    LocalDate createdDate;
+    String userPhoneNumber;
     Long userId;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    Catalog catalog;
+
 }

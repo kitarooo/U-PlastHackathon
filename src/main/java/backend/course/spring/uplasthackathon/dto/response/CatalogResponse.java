@@ -16,4 +16,5 @@ public class CatalogResponse {
     double price;
     String description;
     String features;
+    Long userId;
 }

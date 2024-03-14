@@ -30,6 +30,7 @@ public class CatalogService {
 
 
         Catalog catalog = Catalog.builder()
+                .userId(user.getId())
                 .catalogName(request.getCatalogName())
                 .price(request.getPrice())
                 .description(request.getDescription())
@@ -41,42 +42,45 @@ public class CatalogService {
         return "Каталог успешно создан!";
     }
 
-public CatalogResponse getCatalogById(Long id) {
-    Catalog catalog = catalogRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
+    public CatalogResponse getCatalogById(Long id) {
+        User user = getAuthUser();
+        Catalog catalog = catalogRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
 
-    return CatalogResponse.builder()
-            .id(catalog.getId())
-            .catalogName(catalog.getCatalogName())
-            .description(catalog.getDescription())
-            .features(catalog.getFeatures())
-            .imageUrl(catalog.getImageUrl())
-            .build();
-}
+        return CatalogResponse.builder()
+                .id(catalog.getId())
+                .userId(user.getId())
+                .catalogName(catalog.getCatalogName())
+                .description(catalog.getDescription())
+                .features(catalog.getFeatures())
+                .imageUrl(catalog.getImageUrl())
+                .build();
+    }
 
-public String updateCatalogById(Long id, CatalogRequest request) {
-    Catalog catalog = catalogRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
+    public String updateCatalogById(Long id, CatalogRequest request) {
+        Catalog catalog = catalogRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
 
-    catalog.setCatalogName(request.getCatalogName());
-    catalog.setDescription(request.getDescription());
-    catalog.setPrice(request.getPrice());
-    catalog.setDescription(request.getDescription());
+        catalog.setCatalogName(request.getCatalogName());
+        catalog.setDescription(request.getDescription());
+        catalog.setPrice(request.getPrice());
+        catalog.setDescription(request.getDescription());
+        catalog.setFeatures(request.getFeatures());
+        catalogRepository.save(catalog);
 
-    return "Данные успешно обновлены!";
-}
+        return "Данные успешно обновлены!";
+    }
 
-public String deleteCatalogById(Long id) {
-    Catalog catalog = catalogRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
+    public String deleteCatalogById(Long id) {
+        Catalog catalog = catalogRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
 
-    catalogRepository.save(catalog);
+        catalogRepository.delete(catalog);
 
-    return "Каталог успешно удален!";
-}
+        return "Каталог успешно удален!";
+    }
 
-private User getAuthUser() {
-    return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-}
-
+    private User getAuthUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }

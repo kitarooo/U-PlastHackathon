@@ -18,7 +18,7 @@ public class ExcHandler {
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionResponse unauthorizedException(NotFoundException e) {
-        return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getClass().getName(), e.getMessage());
+        return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getClass().getName(), e.getMessage());
     }
 
     @ExceptionHandler(UnauthorizedException.class)

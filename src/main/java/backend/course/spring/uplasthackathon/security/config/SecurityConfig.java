@@ -31,12 +31,23 @@ public class SecurityConfig extends WebSecurityConfiguration {
     };
 
     public String[] ADMIN = {
-            "/api/v1/catalogs/**"
+            "/api/v1/catalogs/**",
+            "/api/v1/orders/**",
+            "/api/v1/orders/all"
     };
 
     public String[] USER = {
             "/api/v1/catalogs/all",
-            "/api/v1/catalogs/{id}"
+            "/api/v1/catalogs/{id}",
+            "/api/v1/orders/create",
+            "/api/v1/orders/my-orders",
+    };
+
+    public String[] EMPLOYEE = {
+            "/api/v1/catalogs/**",
+            "/api/v1/catalogs/all",
+            "/api/v1/orders/**",
+            "/api/v1/orders/all"
     };
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -47,7 +58,8 @@ public class SecurityConfig extends WebSecurityConfiguration {
                 }))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(USER).hasRole("USER")
+                        .requestMatchers(USER).hasAnyRole("USER","ADMIN", "EMPLOYEE")
+                        .requestMatchers(EMPLOYEE).hasAnyRole("EMPLOYEE", "ADMIN")
                         .requestMatchers(ADMIN).hasRole("ADMIN")
                         .requestMatchers(PERMIT_ALL).permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -15,5 +15,6 @@ public class CatalogRequest {
     double price;
     String description;
     String features;
+    Long userId;
 
 }
