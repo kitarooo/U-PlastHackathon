@@ -11,13 +11,13 @@ public class ExcHandler {
 
     @ExceptionHandler(UserAlreadyExistException.class)
     @ResponseStatus(HttpStatus.FOUND)
-    public ExceptionResponse unauthorizedException(UserAlreadyExistException e) {
+    public ExceptionResponse userAlreadyExistException(UserAlreadyExistException e) {
         return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getClass().getName(), e.getMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionResponse unauthorizedException(NotFoundException e) {
+    public ExceptionResponse notFoundException(NotFoundException e) {
         return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getClass().getName(), e.getMessage());
     }
 
@@ -29,13 +29,19 @@ public class ExcHandler {
 
     @ExceptionHandler(IncorrectDataException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse unauthorizedException(IncorrectDataException e) {
+    public ExceptionResponse incorrectDataException(IncorrectDataException e) {
         return new ExceptionResponse(HttpStatus.BAD_REQUEST, e.getClass().getName(), e.getMessage());
     }
 
     @ExceptionHandler(CatalogAlreadyExistException.class)
     @ResponseStatus(HttpStatus.FOUND)
-    public ExceptionResponse unauthorizedException(CatalogAlreadyExistException e) {
+    public ExceptionResponse catalogAlreadyExistException(CatalogAlreadyExistException e) {
         return new ExceptionResponse(HttpStatus.FOUND, e.getClass().getName(), e.getMessage());
+    }
+
+    @ExceptionHandler(EmptyFileException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionResponse emptyFileException(EmptyFileException e) {
+        return new ExceptionResponse(HttpStatus.CONFLICT, e.getClass().getName(), e.getMessage());
     }
 }

@@ -10,6 +10,7 @@ import backend.course.spring.uplasthackathon.repository.CatalogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CatalogService {
     private final CatalogRepository catalogRepository;
+    private final ImageUploadService uploadService;
 
     public List<Catalog> getAll() {
         return catalogRepository.findAll();
@@ -78,6 +80,15 @@ public class CatalogService {
         catalogRepository.delete(catalog);
 
         return "Каталог успешно удален!";
+    }
+
+    public String imageUpload(MultipartFile multipartFile, Long catalogId) {
+        Catalog catalog = catalogRepository.findById(catalogId)
+                .orElseThrow(() -> new NotFoundException("Каталог не найден!"));
+        catalog.setImageUrl(uploadService.saveImage(multipartFile));
+        catalogRepository.save(catalog);
+
+        return "Фотография успешно создана!";
     }
 
     private User getAuthUser() {

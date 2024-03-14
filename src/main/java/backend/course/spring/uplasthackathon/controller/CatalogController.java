@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -88,4 +89,21 @@ public class CatalogController {
     public String deleteById(@PathVariable Long id) {
         return catalogService.deleteCatalogById(id);
     }
+
+    @PostMapping("/upload")
+    @Operation(summary = "Admin and Employee endpoint", description = "Для удаления каталога!",
+            responses = {
+                    @ApiResponse(
+                            content = @Content(mediaType = "string"),
+                            responseCode = "200", description = "Good"),
+                    @ApiResponse(
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ExceptionResponse.class)),
+                            responseCode = "404", description = "Catalog not found!"
+                    )
+            })
+    public String uploadImage(@RequestParam MultipartFile multipartFile, @RequestParam Long id) {
+        return catalogService.imageUpload(multipartFile, id);
+    }
+
 }
