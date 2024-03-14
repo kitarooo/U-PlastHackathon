@@ -33,12 +33,13 @@ public class SecurityConfig extends WebSecurityConfiguration {
     public String[] ADMIN = {
             "/api/v1/catalogs/**",
             "/api/v1/orders/**",
-            "/api/v1/orders/all"
+            "/api/v1/orders/all",
+            "/api/v1/employees/**"
     };
 
     public String[] USER = {
             "/api/v1/catalogs/all",
-            "/api/v1/catalogs/{id}",
+            "/api/v1/catalogs/get/**",
             "/api/v1/orders/create",
             "/api/v1/orders/my-orders",
     };

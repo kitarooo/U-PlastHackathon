@@ -41,7 +41,7 @@ public class CatalogController {
         return catalogService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/get/{id}")
     @Operation(summary = "Admin and Employee endpoint", description = "Для создания каталога!",
             responses = {
                     @ApiResponse(
